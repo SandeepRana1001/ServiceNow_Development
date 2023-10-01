@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<unload unload_date="2023-10-01 05:48:48">
+<sys_update_set action="INSERT_OR_UPDATE">
+<application display_value="Human Resources: Core">d4ac3fff5b311200a4656ede91f91af2</application>
+<base_update_set display_value=""/>
+<completed_by display_value=""/>
+<completed_on>2023-09-30 15:41:18</completed_on>
+<description>Integrating  Backend Case Form With Chat GPT
+Developer: Sandeep rana</description>
+<install_date/>
+<installed_from/>
+<is_default>false</is_default>
+<merged_to display_value=""/>
+<name>Case Form Integration With Chat GPT</name>
+<origin_sys_id/>
+<parent display_value=""/>
+<release_date/>
+<remote_sys_id display_value=""/>
+<state>in progress</state>
+<sys_created_by>admin</sys_created_by>
+<sys_created_on>2023-09-30 15:41:51</sys_created_on>
+<sys_id>7e28ff9ac3e971101e62241ce0013119</sys_id>
+<sys_mod_count>3</sys_mod_count>
+<sys_updated_by>admin</sys_updated_by>
+<sys_updated_on>2023-10-01 05:46:51</sys_updated_on>
+</sys_update_set>
+</unload>

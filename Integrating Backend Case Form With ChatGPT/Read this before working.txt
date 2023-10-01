@@ -1,0 +1,8 @@
+Hello Developer , 
+
+Hope this find you in good company
+Before you start using this update set , just make sure to follow the following steps
+
+1) Once the update set is loaded , navigate to captured Rest Message in the set
+2) Navigate To HTTP Request Tab and Update The Authorization Value To Bearer <Your API KEY>
+Note: You can avail free API key from OPENAI [https://openai.com/]
