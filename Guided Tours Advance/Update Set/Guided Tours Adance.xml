@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?><unload unload_date="2025-04-19 15:25:07">
+<sys_remote_update_set action="INSERT_OR_UPDATE">
+<application display_value="Global">global</application>
+<application_name>Global</application_name>
+<application_scope>global</application_scope>
+<application_version/>
+<collisions/>
+<commit_date/>
+<deleted/>
+<description>Developer: Sandeep Rana</description>
+<inserted/>
+<name>Guided Tours Advance V1.0</name>
+<origin_sys_id/>
+<parent display_value=""/>
+<release_date/>
+<remote_base_update_set display_value=""/>
+<remote_parent_id/>
+<remote_sys_id>bd81bf38c30d2e50c9cebe1d05013154</remote_sys_id>
+<state>loaded</state>
+<summary/>
+<sys_class_name>sys_remote_update_set</sys_class_name>
+<sys_created_by>sanderana</sys_created_by>
+<sys_created_on>2025-04-19 15:25:06</sys_created_on>
+<sys_id>b1e1b778c30d2e50c9cebe1d0501311d</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_updated_by>sanderana</sys_updated_by>
+<sys_updated_on>2025-04-19 15:25:06</sys_updated_on>
+<update_set display_value=""/>
+<update_source display_value=""/>
+<updated/>
+</sys_remote_update_set>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_script_include_16399778c3892e50c9cebe1d050131c0</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_script_include"&gt;&lt;sys_script_include action="INSERT_OR_UPDATE"&gt;&lt;access&gt;public&lt;/access&gt;&lt;active&gt;true&lt;/active&gt;&lt;api_name&gt;global.guided_tour_helper&lt;/api_name&gt;&lt;caller_access/&gt;&lt;client_callable&gt;true&lt;/client_callable&gt;&lt;description/&gt;&lt;mobile_callable&gt;false&lt;/mobile_callable&gt;&lt;name&gt;guided_tour_helper&lt;/name&gt;&lt;sandbox_callable&gt;false&lt;/sandbox_callable&gt;&lt;script&gt;&lt;![CDATA[var guided_tour_helper = Class.create();
+guided_tour_helper.prototype = Object.extendsObject(AbstractAjaxProcessor, {
+    // check if tour is already played
+
+    check_tours_auto_launch_record: function(tourID, user) {
+
+        var glideman = new GlideRecord('sys_guided_tour_user_overrides');
+        glideman.addEncodedQuery('tour=' + tourID + '^user=' + user);
+        glideman.query();
+
+        if (glideman.next()) { // there exists a record 
+            return true;
+        }
+
+        return false;
+
+    },
+
+    change_tours_auto_launch_status: function(tourID, status) {
+
+        var glideman = new GlideRecord('sys_guided_tour_user_overrides');
+        glideman.addEncodedQuery('tour=' + tourID + '^user=' + gs.getUserID());
+        glideman.query();
+
+        if (glideman.next()) { // there exists a record 
+            glideman.disable_autolaunch = status; // set status
+            glideman.update(); // update status
+        }
+
+    },
+
+    create_tours_auto_launch_status: function(tourID, status, user) { // create new record
+
+        var glideman = new GlideRecord('sys_guided_tour_user_overrides');
+
+        glideman.initialize();
+        glideman.user = user;
+        glideman.tour = tourID;
+        glideman.disable_autolaunch = status;
+        glideman.insert();
+
+    },
+
+    check_tours_auto_launch_status: function() {
+        var tour_id = this.getParameter('tour_id');
+
+        var glideman = new GlideRecord('sys_guided_tour_user_overrides');
+        glideman.addEncodedQuery('tour=' + tour_id + '^user=' + gs.getUserID() + '^disable_autolaunch=true');
+        glideman.query();
+
+        if (glideman.next()) { // if tour is already played
+            return true;
+        } else { // if tour is not yet played or record doesn't exists
+
+            var recordExists = this.check_tours_auto_launch_record(tour_id, gs.getUserID());
+
+            if (recordExists) {
+                this.change_tours_auto_launch_status(tour_id, true);
+            } else {
+                this.create_tours_auto_launch_status(tour_id, true, gs.getUserID());
+            }
+
+        }
+
+
+        return false;
+
+
+
+
+
+    },
+    type: 'guided_tour_helper'
+});]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_script_include&lt;/sys_class_name&gt;&lt;sys_created_by&gt;sanderana&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2025-04-19 13:38:36&lt;/sys_created_on&gt;&lt;sys_id&gt;16399778c3892e50c9cebe1d050131c0&lt;/sys_id&gt;&lt;sys_mod_count&gt;10&lt;/sys_mod_count&gt;&lt;sys_name&gt;guided_tour_helper&lt;/sys_name&gt;&lt;sys_package display_value="Global" source="global"&gt;global&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_script_include_16399778c3892e50c9cebe1d050131c0&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;sanderana&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-04-19 15:24:46&lt;/sys_updated_on&gt;&lt;/sys_script_include&gt;&lt;sys_es_latest_script action="INSERT_OR_UPDATE"&gt;&lt;id&gt;16399778c3892e50c9cebe1d050131c0&lt;/id&gt;&lt;sys_created_by&gt;sanderana&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2025-04-19 13:38:35&lt;/sys_created_on&gt;&lt;sys_id&gt;ed891778c3892e50c9cebe1d050131e8&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_updated_by&gt;sanderana&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-04-19 13:38:35&lt;/sys_updated_on&gt;&lt;table&gt;sys_script_include&lt;/table&gt;&lt;use_es_latest&gt;true&lt;/use_es_latest&gt;&lt;/sys_es_latest_script&gt;&lt;/record_update&gt;</payload>
+<payload_hash>1131088871</payload_hash>
+<remote_update_set display_value="Guided Tours Advance V1.0">b1e1b778c30d2e50c9cebe1d0501311d</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>sanderana</sys_created_by>
+<sys_created_on>2025-04-19 15:25:06</sys_created_on>
+<sys_id>b1e1b778c30d2e50c9cebe1d0501311e</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>1964ea6f3200000001</sys_recorded_at>
+<sys_updated_by>sanderana</sys_updated_by>
+<sys_updated_on>2025-04-19 15:25:06</sys_updated_on>
+<table/>
+<target_name>guided_tour_helper</target_name>
+<type>Script Include</type>
+<update_domain>global</update_domain>
+<update_guid>bcd17378ce0d2e501fc375f1f373aeec</update_guid>
+<update_guid_history>bcd17378ce0d2e501fc375f1f373aeec:1131088871,8bc173780d0d2e5014d3ebd221df749f:-1894268940,f2956b385bc92e50658cd0aaf01690ac:1131088871,dc25237458c92e502d6ed76913b57298:1945138780,7f846b386ec92e50a20705e34c4fdda7:734813859,908423384ec92e50edc9a9a460aa44eb:38401338,7e14e77467c92e506dedfeb192f86a63:-1929801764,1d4e53fc1c892e5010f4ad28e353c68c:2124447080,596d13fc23892e50435c7274b2a7d983:-2000351031,fdbadbb8a3892e50aae8cf21ab836772:-36877587,7d895b78b4892e5017c3456abf632aea:-1594050959</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_embedded_tour_guide_236e7190c30d6a50c9cebe1d05013149</name>
+<payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_embedded_tour_guide"><sys_embedded_tour_guide action="INSERT_OR_UPDATE"><active>true</active><additional_parameters/><autolaunch_order>0</autolaunch_order><context>incident.do</context><description/><has_concl>true</has_concl><has_intro>true</has_intro><name>Incident Tours</name><options/><roles/><route_parameters/><sn_created>false</sn_created><sp_page/><sp_portal/><status>published</status><sys_class_name>sys_embedded_tour_guide</sys_class_name><sys_created_by>sanderana</sys_created_by><sys_created_on>2025-04-17 17:43:38</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>/</sys_domain_path><sys_id>236e7190c30d6a50c9cebe1d05013149</sys_id><sys_mod_count>7</sys_mod_count><sys_name>Incident Tours</sys_name><sys_overrides/><sys_package display_value="Global" source="global">global</sys_package><sys_policy/><sys_scope display_value="Global">global</sys_scope><sys_update_name>sys_embedded_tour_guide_236e7190c30d6a50c9cebe1d05013149</sys_update_name><sys_updated_by>sanderana</sys_updated_by><sys_updated_on>2025-04-19 15:24:03</sys_updated_on><tour_id>TOUR0000033</tour_id><type>platform</type></sys_embedded_tour_guide></record_update>]]></payload>
+<payload_hash>-714764825</payload_hash>
+<remote_update_set display_value="Guided Tours Advance V1.0">b1e1b778c30d2e50c9cebe1d0501311d</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>sanderana</sys_created_by>
+<sys_created_on>2025-04-19 15:25:06</sys_created_on>
+<sys_id>b5e1b778c30d2e50c9cebe1d0501311d</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>1964ea64dfc0000001</sys_recorded_at>
+<sys_updated_by>sanderana</sys_updated_by>
+<sys_updated_on>2025-04-19 15:25:06</sys_updated_on>
+<table/>
+<target_name>Incident Tours</target_name>
+<type>Guided Tour</type>
+<update_domain>global</update_domain>
+<update_guid>e6a13378b20d2e508f55f1b74f1eb4d3</update_guid>
+<update_guid_history>e6a13378b20d2e508f55f1b74f1eb4d3:-714764825,25a173746c0d2e50a2408b37267c4332:704637000,44000614480d6a5050bad1cccf833a52:-714764825,24bf35905f0d6a50230c1c4c69f4be9c:350501231,2fbe3d904c0d6a5049b80b0e41516359:375636672,36beb990540d6a5078d96935cbeab1c5:1054819181,739eb590e60d6a506f0a89c26520e95a:-624808238,3f6e7190a60d6a500190a75bde1e164d:-540908397</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+<sys_update_xml action="INSERT_OR_UPDATE">
+<action>INSERT_OR_UPDATE</action>
+<application display_value="Global">global</application>
+<category>customer</category>
+<comments/>
+<name>sys_script_client_686f79d0c30d6a50c9cebe1d05013160</name>
+<payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update sys_domain="global" table="sys_script_client"&gt;&lt;sys_script_client action="INSERT_OR_UPDATE"&gt;&lt;active&gt;true&lt;/active&gt;&lt;applies_extended&gt;false&lt;/applies_extended&gt;&lt;condition/&gt;&lt;description/&gt;&lt;field/&gt;&lt;global&gt;true&lt;/global&gt;&lt;isolate_script&gt;true&lt;/isolate_script&gt;&lt;messages/&gt;&lt;name&gt;Load Tours&lt;/name&gt;&lt;order/&gt;&lt;script&gt;&lt;![CDATA[function onLoad() {
+
+    //create a callback function to handle the result of the API call
+
+    // navigate to sys_guided_tour_user_overrides_list table to check if tour is already played for user, if played, skip this script, else play this script
+    var tourId = '236e7190c30d6a50c9cebe1d05013149';
+
+    var isTourAlreadyPlayed = false;
+
+    var gax = new GlideAjax('global.guided_tour_helper');
+    gax.addParam('sysparm_name', 'check_tours_auto_launch_status');
+    gax.addParam('tour_id', tourId);
+    gax.getXMLAnswer(function(answer) {
+        isTourAlreadyPlayed = answer;
+        if (isTourAlreadyPlayed == 'false') {
+
+            try {
+
+                var cbFunction = function(err) {
+                    if (err) {
+                        // console.log('Error Occurred');
+                    } else {
+                        // console.log('The tour with tourid=%s was successfully launched', tourId);
+                    }
+                }
+
+                // Loading the player to play tour
+                NOW.guided_tours.api.loadPlayer();
+
+                //calling the startTour method
+                top.NOW.guided_tours.api.startTour(tourId, 0, cbFunction);
+
+            } catch (err) {
+                // console.clear();
+                // console.log(err);
+            }
+        } else {
+
+           // alert('Tour was already Played');
+            return false;
+
+        }
+    });
+
+}]]&gt;&lt;/script&gt;&lt;sys_class_name&gt;sys_script_client&lt;/sys_class_name&gt;&lt;sys_created_by&gt;sanderana&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2025-04-17 17:48:45&lt;/sys_created_on&gt;&lt;sys_domain&gt;global&lt;/sys_domain&gt;&lt;sys_domain_path&gt;/&lt;/sys_domain_path&gt;&lt;sys_id&gt;686f79d0c30d6a50c9cebe1d05013160&lt;/sys_id&gt;&lt;sys_mod_count&gt;22&lt;/sys_mod_count&gt;&lt;sys_name&gt;Load Tours&lt;/sys_name&gt;&lt;sys_overrides/&gt;&lt;sys_package display_value="Global" source="global"&gt;global&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_script_client_686f79d0c30d6a50c9cebe1d05013160&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;sanderana&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-04-19 15:24:32&lt;/sys_updated_on&gt;&lt;table&gt;incident&lt;/table&gt;&lt;type&gt;onLoad&lt;/type&gt;&lt;ui_type&gt;10&lt;/ui_type&gt;&lt;view/&gt;&lt;/sys_script_client&gt;&lt;/record_update&gt;</payload>
+<payload_hash>-1365792404</payload_hash>
+<remote_update_set display_value="Guided Tours Advance V1.0">b1e1b778c30d2e50c9cebe1d0501311d</remote_update_set>
+<replace_on_upgrade>false</replace_on_upgrade>
+<sys_created_by>sanderana</sys_created_by>
+<sys_created_on>2025-04-19 15:25:06</sys_created_on>
+<sys_id>fde1b778c30d2e50c9cebe1d0501311d</sys_id>
+<sys_mod_count>0</sys_mod_count>
+<sys_recorded_at>1964ea6be980000001</sys_recorded_at>
+<sys_updated_by>sanderana</sys_updated_by>
+<sys_updated_on>2025-04-19 15:25:06</sys_updated_on>
+<table>incident</table>
+<target_name>Load Tours</target_name>
+<type>Client Script</type>
+<update_domain>global</update_domain>
+<update_guid>e9c17f38010d2e504eb5dd140781dd0f</update_guid>
+<update_guid_history>e9c17f38010d2e504eb5dd140781dd0f:-1365792404,53b1b3301d0d2e5005c43e0395cfed2d:-1857085121,3a3e6bfc2fc92e50e8cd6ee13c8582bf:-1365792404,007aa330170d2e50c6940dcbc84bee23:1722708119,ad2623b8a8c92e506e2dc5cfbef632fd:1187649655,b99267b063c92e507294ee4443d19542:-1494390025,3212e7748dc92e509d3aba282629d55e:-1263521915,d6b0abb0ebc92e50170c4b2481e2d3a5:1460022907,23ef9bb0efc92e50716bc0aef7088e55:-256286703,ebce973032c92e507f30b9d59df9ff05:206492180,e0bedf30b4c92e501020dbff19894a84:2084323409,718e9b30c6c92e50ac1c8b10ed4691ff:1493811978,b07edb7cbd892e50777bce1422d7e507:2132978011,600edbfc82892e50591cc4c324b2c63b:-1106597294,3ceddbfc3d892e50b11f4127cb2fa833:-101668414,a3cddf7c0d892e5032a0d6c0f2e4735a:683442642,db2b133c7d892e50b649e54e25b42a6a:295177065,71c3ce145f0d6a5008251d9e754c39c2:-1376444608,74708614af0d6a509863cb03d1deff9e:-348578309,0c408e14b60d6a5056ebcd0bf7d42744:-879881932,a0efbdd0370d6a508a9babbd95b4d103:-1249365926,0edff114700d6a50dbb6e15c32cda6ae:522065417,2e9f7590d00d6a505ba2a89327e0fa40:-790015130</update_guid_history>
+<update_set display_value=""/>
+<view/>
+</sys_update_xml>
+</unload>
